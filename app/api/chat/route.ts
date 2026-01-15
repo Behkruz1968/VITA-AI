@@ -1,5 +1,10 @@
 import { consumeStream, convertToModelMessages, streamText, type UIMessage } from "ai"
 import { createClient } from "@/lib/supabase/server"
+import { createOpenAI } from "@ai-sdk/openai"
+
+const openai = createOpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+})
 
 export const maxDuration = 30
 

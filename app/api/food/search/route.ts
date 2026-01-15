@@ -1,5 +1,10 @@
+import { createOpenAI } from "@ai-sdk/openai"
 import { generateObject } from "ai"
 import { z } from "zod"
+
+const openai = createOpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+})
 
 const foodSchema = z.object({
   foods: z.array(
@@ -21,7 +26,7 @@ export async function POST(req: Request) {
   const { query } = await req.json()
 
   const { object } = await generateObject({
-    model: "openai/gpt-4o-mini",
+    model: openai("gpt-4o-mini"),
     schema: foodSchema,
     prompt: `Search for foods matching: "${query}"
 
